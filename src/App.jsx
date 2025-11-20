@@ -79,19 +79,19 @@ const NavBar = ({ ready }) => {
   const location = useLocation();
   
   return (
-    <nav className="border-b bg-card">
-      <div className="max-w-6xl mx-auto px-2 sm:px-4">
-        <div className="flex items-center justify-between h-14 sm:h-16">
-          <Link to="/" className="text-lg sm:text-2xl font-bold truncate">
+    <nav className="border-b bg-card/95 backdrop-blur">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 py-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <Link to="/" className="text-xl sm:text-2xl font-bold text-foreground">
             🍓 Smoocho
           </Link>
-              <div className="flex gap-1 sm:gap-2 flex-wrap">
-                <NavLink to="/" current={location.pathname}>Sales</NavLink>
-                <NavLink to="/expense" current={location.pathname}>Expenses</NavLink>
-                <NavLink to="/entries" current={location.pathname}>Entries</NavLink>
-                <NavLink to="/dashboard" current={location.pathname}>Dashboard</NavLink>
-                {!ready && <NavLink to="/setup" current={location.pathname}>Setup</NavLink>}
-              </div>
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-start sm:justify-end">
+            <NavLink to="/" current={location.pathname}>Sales</NavLink>
+            <NavLink to="/expense" current={location.pathname}>Expenses</NavLink>
+            <NavLink to="/entries" current={location.pathname}>Entries</NavLink>
+            <NavLink to="/dashboard" current={location.pathname}>Dashboard</NavLink>
+            {!ready && <NavLink to="/setup" current={location.pathname}>Setup</NavLink>}
+          </div>
         </div>
       </div>
     </nav>
@@ -102,6 +102,8 @@ const NavLink = ({ to, current, children }) => (
   <Button
     asChild
     variant={current === to ? 'default' : 'ghost'}
+    size="sm"
+    className="px-3 sm:px-4 h-9 rounded-full"
   >
     <Link to={to}>{children}</Link>
   </Button>
