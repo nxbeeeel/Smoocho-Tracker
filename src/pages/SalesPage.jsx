@@ -395,10 +395,10 @@ const SalesPage = () => {
             </div>
 
             {/* Quick Cash Expenses */}
-            <Card className="bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800">
+            <Card className="bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800 text-slate-900">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base sm:text-lg">💰 Quick Cash Expenses</CardTitle>
-                <CardDescription className="text-xs">Enter common daily expenses</CardDescription>
+                <CardTitle className="text-base sm:text-lg text-slate-900">💰 Quick Cash Expenses</CardTitle>
+                <CardDescription className="text-xs text-slate-600">Enter common daily expenses</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
@@ -463,20 +463,20 @@ const SalesPage = () => {
             </Card>
 
             {/* Cash Balance Calculation */}
-            <Card className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
+            <Card className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800 text-slate-900">
               <CardHeader className="pb-3">
-                <CardTitle className="text-lg">💰 Cash Balance Calculation</CardTitle>
+                <CardTitle className="text-lg text-slate-900">💰 Cash Balance Calculation</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {/* Sales Summary */}
                 <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded">
                   <div className="text-xs font-bold text-green-700 dark:text-green-300 mb-2">TODAY'S SALES</div>
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-muted-foreground">Cash + Bank Sale</span>
-                    <span className="font-bold text-sm">{formatCurrency(cashBankTotal)}</span>
+                    <span className="text-xs text-slate-700">Cash + Bank Sale</span>
+                    <span className="font-bold text-sm text-slate-900">{formatCurrency(cashBankTotal)}</span>
                   </div>
                   <div className="flex justify-between items-center mt-1">
-                    <span className="text-xs text-muted-foreground">Total (with Swiggy/Zomato)</span>
+                    <span className="text-xs text-slate-700">Total (with Swiggy/Zomato)</span>
                     <span className="font-bold text-sm text-green-600">{formatCurrency(totalSaleWithPlatforms)}</span>
                   </div>
                 </div>
@@ -487,15 +487,15 @@ const SalesPage = () => {
                   <span className="font-bold text-base text-purple-600 float-right">{formatCurrency(yesterdayClosing)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">+ Today's Cash Sale</span>
+                  <span className="text-sm text-slate-700">+ Today's Cash Sale</span>
                   <span className="font-semibold text-green-600">+{formatCurrency(todayCashSale)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">- Today's Cash Expenses</span>
+                  <span className="text-sm text-slate-700">- Today's Cash Expenses</span>
                   <span className="font-semibold text-red-600">-{formatCurrency(totalCashExpense)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">- Cash Withdrawals</span>
+                  <span className="text-sm text-slate-700">- Cash Withdrawals</span>
                   <span className="font-semibold text-red-600">-{formatCurrency(withdrawalAmount)}</span>
                 </div>
                 {quickExpenses > 0 && (
@@ -506,13 +506,13 @@ const SalesPage = () => {
                 )}
                 <div className="pt-2 border-t border-blue-300 dark:border-blue-700">
                   <div className="flex justify-between items-center">
-                    <span className="text-base font-bold">Today's Cash in Hand (after withdrawal)</span>
+                    <span className="text-base font-bold text-slate-900">Today's Cash in Hand (after withdrawal)</span>
                     <span className={`text-xl font-bold ${cashAfterWithdrawal >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                       {formatCurrency(cashAfterWithdrawal)}
                     </span>
                   </div>
                   {withdrawalAmount > 0 && (
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-slate-600">
                       Entered cash: {formatCurrency(enteredCashInHand)} − withdrawal {formatCurrency(withdrawalAmount)}
                     </p>
                   )}
@@ -520,7 +520,7 @@ const SalesPage = () => {
                 {cashInHand && (
                   <div className="pt-2 border-t border-blue-300 dark:border-blue-700 mt-2">
                     <div className="flex justify-between items-center mt-2">
-                      <span className="text-sm text-muted-foreground">Yesterday's Cash Balance</span>
+                      <span className="text-sm text-slate-700">Yesterday's Cash Balance</span>
                       <span className="font-semibold">{formatCurrency(yesterdayClosing)}</span>
                     </div>
                     <div className="flex justify-between items-center mt-2 bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded">
