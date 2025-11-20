@@ -208,8 +208,10 @@ const SalesPage = () => {
     }
   };
 
+  const compactInputClass = "h-11 text-sm";
+
   return (
-    <div className="space-y-4 sm:space-y-6 max-w-4xl mx-auto pb-12">
+    <div className="space-y-3 sm:space-y-5 max-w-4xl mx-auto pb-10">
       <HeroSection />
       
       <Card>
@@ -226,8 +228,8 @@ const SalesPage = () => {
       )}
 
       <Card>
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+        <CardContent className="pt-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <div className="space-y-2">
               <Label htmlFor="date" className="text-base font-semibold">Date</Label>
               <div className="flex gap-2">
@@ -275,9 +277,9 @@ const SalesPage = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="cashSale" className="text-base font-semibold">Cash Sale (₹)</Label>
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-5">
+              <div className="space-y-1.5">
+                <Label htmlFor="cashSale" className="text-sm font-semibold">Cash Sale (₹)</Label>
                 <Input
                   id="cashSale"
                   type="text"
@@ -285,12 +287,12 @@ const SalesPage = () => {
                   value={cashSale}
                   onChange={(e) => setCashSale(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="bankSale" className="text-base font-semibold">Bank Sale (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="bankSale" className="text-sm font-semibold">Bank Sale (₹)</Label>
                 <Input
                   id="bankSale"
                   type="text"
@@ -298,12 +300,12 @@ const SalesPage = () => {
                   value={bankSale}
                   onChange={(e) => setBankSale(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="cashInHand" className="text-base font-semibold">Cash in hand (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="cashInHand" className="text-sm font-semibold">Cash in hand (₹)</Label>
                 <Input
                   id="cashInHand"
                   type="text"
@@ -311,12 +313,12 @@ const SalesPage = () => {
                   value={cashInHand}
                   onChange={(e) => setCashInHand(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="cashInBank" className="text-base font-semibold">Cash in bank (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="cashInBank" className="text-sm font-semibold">Cash in bank (₹)</Label>
                 <Input
                   id="cashInBank"
                   type="text"
@@ -324,12 +326,12 @@ const SalesPage = () => {
                   value={cashInBank}
                   onChange={(e) => setCashInBank(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="cashWithdrawal" className="text-base font-semibold">Cash Withdrawal (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="cashWithdrawal" className="text-sm font-semibold">Cash Withdrawal (₹)</Label>
                 <Input
                   id="cashWithdrawal"
                   type="text"
@@ -337,12 +339,12 @@ const SalesPage = () => {
                   value={cashWithdrawal}
                   onChange={(e) => setCashWithdrawal(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="swiggy" className="text-base font-semibold">Swiggy (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="swiggy" className="text-sm font-semibold">Swiggy (₹)</Label>
                 <Input
                   id="swiggy"
                   type="text"
@@ -350,12 +352,12 @@ const SalesPage = () => {
                   value={swiggy}
                   onChange={(e) => setSwiggy(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="zomato" className="text-base font-semibold">Zomato (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="zomato" className="text-sm font-semibold">Zomato (₹)</Label>
                 <Input
                   id="zomato"
                   type="text"
@@ -363,12 +365,12 @@ const SalesPage = () => {
                   value={zomato}
                   onChange={(e) => setZomato(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="swiggyPayout" className="text-base font-semibold">Swiggy Payout (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="swiggyPayout" className="text-sm font-semibold">Swiggy Payout (₹)</Label>
                 <Input
                   id="swiggyPayout"
                   type="text"
@@ -376,12 +378,12 @@ const SalesPage = () => {
                   value={swiggyPayout}
                   onChange={(e) => setSwiggyPayout(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="zomatoPayout" className="text-base font-semibold">Zomato Payout (₹)</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="zomatoPayout" className="text-sm font-semibold">Zomato Payout (₹)</Label>
                 <Input
                   id="zomatoPayout"
                   type="text"
@@ -389,20 +391,20 @@ const SalesPage = () => {
                   value={zomatoPayout}
                   onChange={(e) => setZomatoPayout(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
-                  className="h-12 text-base"
+                  className={compactInputClass}
                 />
               </div>
             </div>
 
             {/* Quick Cash Expenses */}
             <Card className="bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800 text-slate-900">
-              <CardHeader className="pb-3">
+              <CardHeader className="pb-2">
                 <CardTitle className="text-base sm:text-lg text-slate-900">💰 Quick Cash Expenses</CardTitle>
                 <CardDescription className="text-xs text-slate-600">Enter common daily expenses</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                  <div className="space-y-2">
+              <CardContent className="pb-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
                     <Label htmlFor="oil" className="text-sm font-semibold">Oil (₹)</Label>
                     <Input
                       id="oil"
@@ -411,11 +413,11 @@ const SalesPage = () => {
                       value={oil}
                       onChange={(e) => setOil(e.target.value.replace(/[^0-9.]/g, ''))}
                       placeholder="0.00"
-                      className="h-10 text-sm"
+                      className="h-10 text-xs"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <Label htmlFor="waterCan" className="text-sm font-semibold">Water Can (₹)</Label>
                     <Input
                       id="waterCan"
@@ -424,11 +426,11 @@ const SalesPage = () => {
                       value={waterCan}
                       onChange={(e) => setWaterCan(e.target.value.replace(/[^0-9.]/g, ''))}
                       placeholder="0.00"
-                      className="h-10 text-sm"
+                      className="h-10 text-xs"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <Label htmlFor="water" className="text-sm font-semibold">Water Bottle (₹)</Label>
                     <Input
                       id="water"
@@ -437,11 +439,11 @@ const SalesPage = () => {
                       value={water}
                       onChange={(e) => setWater(e.target.value.replace(/[^0-9.]/g, ''))}
                       placeholder="0.00"
-                      className="h-10 text-sm"
+                      className="h-10 text-xs"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <Label htmlFor="miscExpense" className="text-sm font-semibold">Misc (₹)</Label>
                     <Input
                       id="miscExpense"
@@ -450,7 +452,7 @@ const SalesPage = () => {
                       value={miscExpense}
                       onChange={(e) => setMiscExpense(e.target.value.replace(/[^0-9.]/g, ''))}
                       placeholder="0.00"
-                      className="h-10 text-sm"
+                      className="h-10 text-xs"
                     />
                   </div>
                 </div>
