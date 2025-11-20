@@ -60,7 +60,7 @@ function App() {
             <div className="min-h-screen bg-background">
           <StaffNameModal />
               <NavBar ready={ready} />
-              <main className="max-w-6xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+              <main className="page-shell py-4 sm:py-8">
                 <Routes>
                   <Route path="/" element={<SalesPage />} />
                   <Route path="/expense" element={<ExpensePage />} />

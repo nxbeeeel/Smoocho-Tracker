@@ -8,7 +8,7 @@
     /* High-quality black, grey, white palette */
     --background: 240 5.9% 10%; /* Dark blue-grey background */
     --foreground: 0 0% 98%; /* Pure white #fafafa */
-    --card: 0 0% 9%; /* Dark grey #171717 */
+    --card: 0 0% 12%; /* Slightly lighter to increase contrast */
     --card-foreground: 0 0% 98%; /* White */
     --popover: 0 0% 9%; /* Dark grey */
     --popover-foreground: 0 0% 98%; /* White */
@@ -17,7 +17,7 @@
     --secondary: 0 0% 14.9%; /* Medium grey #262626 */
     --secondary-foreground: 0 0% 98%; /* White */
     --muted: 0 0% 14.9%; /* Medium grey */
-    --muted-foreground: 0 0% 63.9%; /* Light grey #a3a3a3 */
+    --muted-foreground: 0 0% 78%; /* Brighter grey for readability */
     --accent: 0 0% 14.9%; /* Medium grey */
     --accent-foreground: 0 0% 98%; /* White */
     --destructive: 0 62.8% 30.6%; /* Red for errors */
@@ -65,10 +65,17 @@
 }
 
 @layer base {
+  html {
+    height: 100%;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
   * {
     border-color: hsl(var(--border));
+    -webkit-tap-highlight-color: transparent;
   }
   body {
+    min-height: 100%;
     background: hsl(var(--background));
     background-image: 
       radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.05) 0px, transparent 50%),
@@ -82,20 +89,38 @@
     -moz-osx-font-smoothing: grayscale;
   }
   input, textarea, select {
-    color: #000000 !important;
-    caret-color: #000000 !important;
+    color: #0f172a !important;
+    caret-color: #0f172a !important;
   }
   input::placeholder, textarea::placeholder {
-    color: #666666 !important;
-    opacity: 0.7;
+    color: #475569 !important;
+    opacity: 0.8;
   }
   input[type="date"], input[type="time"], input[type="datetime-local"] {
-    color: #000000 !important;
+    color: #0f172a !important;
   }
   input[type="date"]::-webkit-calendar-picker-indicator,
   input[type="time"]::-webkit-calendar-picker-indicator {
     filter: invert(0);
     opacity: 0.8;
+  }
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+}
+
+@layer components {
+  .page-shell {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
   }
 }
 

@@ -22,7 +22,7 @@ const TabsList = React.forwardRef(({ className, children, ...props }, ref) => {
     <div
       ref={ref}
       className={cn(
-        "inline-flex h-14 w-full items-center justify-center rounded-lg bg-muted/60 backdrop-blur-[var(--blur-sm)] p-1 border border-[var(--glass-border)]",
+        "inline-flex h-16 w-full items-center justify-center rounded-2xl bg-muted/60 backdrop-blur-[var(--blur-sm)] p-1.5 border border-[var(--glass-border)] gap-1",
         className
       )}
       {...props}
@@ -43,7 +43,7 @@ const TabsTrigger = React.forwardRef(({ className, value: tabValue, children, ..
       type="button"
       onClick={() => onValueChange?.(tabValue)}
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-base font-semibold transition-all outline-none disabled:pointer-events-none disabled:opacity-50 flex-1 backdrop-blur-[var(--blur-sm)]",
+        "inline-flex items-center justify-center whitespace-nowrap rounded-xl px-4 py-2.5 text-base font-semibold transition-all outline-none disabled:pointer-events-none disabled:opacity-50 flex-1 backdrop-blur-[var(--blur-sm)]",
         isActive 
           ? "bg-background/80 text-foreground border border-[var(--glass-border)]" 
           : "text-muted-foreground hover:text-foreground hover:bg-background/40",

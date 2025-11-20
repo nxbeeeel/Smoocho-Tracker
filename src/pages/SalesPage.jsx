@@ -209,7 +209,7 @@ const SalesPage = () => {
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-4 sm:space-y-6 max-w-4xl mx-auto pb-12">
       <HeroSection />
       
       <Card>

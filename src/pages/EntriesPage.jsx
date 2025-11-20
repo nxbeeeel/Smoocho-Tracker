@@ -10,10 +10,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { formatCurrency } from '../utils/calculations';
 import { isReady, getEntriesData } from '../services/appsScriptService';
 import { Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { normalizeMonthValue, getCurrentDate } from '../utils/dateFormatter';
 
 const EntriesPage = () => {
   const [activeTab, setActiveTab] = useState('sales');
-  const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().substring(0, 7));
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentDate().substring(0, 7));
   const [salesEntries, setSalesEntries] = useState({ headers: [], rows: [] });
   const [expenseEntries, setExpenseEntries] = useState({ headers: [], rows: [] });
   const [loading, setLoading] = useState(false);
@@ -26,8 +27,10 @@ const EntriesPage = () => {
   }, [selectedMonth]);
 
   const fetchEntries = async () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { value: safeMonthValue, date } = normalizeMonthValue(selectedMonth);
+    if (selectedMonth !== safeMonthValue) {
+      setSelectedMonth(safeMonthValue);
+    }
     const monthName = date.toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
 
     setLoading(true);
@@ -51,15 +54,13 @@ const EntriesPage = () => {
   };
 
   const handlePreviousMonth = () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { date } = normalizeMonthValue(selectedMonth);
     date.setMonth(date.getMonth() - 1);
     setSelectedMonth(date.toISOString().substring(0, 7));
   };
 
   const handleNextMonth = () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { date } = normalizeMonthValue(selectedMonth);
     date.setMonth(date.getMonth() + 1);
     setSelectedMonth(date.toISOString().substring(0, 7));
   };
@@ -102,7 +103,7 @@ const EntriesPage = () => {
   };
 
   return (
-    <div className="space-y-4 pb-6">
+    <div className="space-y-4 pb-10 max-w-5xl mx-auto">
       <Card>
         <CardHeader className="pb-4">
           <CardTitle className="text-xl sm:text-2xl">📋 Entered Data</CardTitle>
@@ -129,8 +130,7 @@ const EntriesPage = () => {
                 type="month"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
-                className="flex-1 px-3 py-2 border border-input rounded-md bg-background h-12 text-base text-center"
-                style={{ color: '#000000' }}
+                className="flex-1 px-4 py-3 border border-white/30 rounded-xl bg-white/95 text-base text-center text-slate-900 shadow-[var(--glass-shadow-sm)]"
               />
               <Button
                 type="button"

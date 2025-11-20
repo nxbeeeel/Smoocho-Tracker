@@ -5,11 +5,11 @@ const Select = React.forwardRef(({ className, children, ...props }, ref) => {
   return (
     <select
       className={cn(
-        "flex h-12 w-full rounded-md border border-[var(--glass-border)] bg-background/60 backdrop-blur-[var(--blur-sm)] px-4 py-3 text-base outline-none focus:border-primary/50 disabled:cursor-not-allowed disabled:opacity-50 transition-all",
+        "flex h-12 w-full rounded-xl border border-white/30 bg-white/95 text-base text-slate-900 shadow-[var(--glass-shadow-sm)] px-4 py-3 outline-none focus:border-primary/70 focus:ring-2 focus:ring-white/50 disabled:cursor-not-allowed disabled:opacity-60 transition-all",
         className
       )}
       style={{ 
-        color: '#000000',
+        color: '#0f172a',
       }}
       ref={ref}
       {...props}

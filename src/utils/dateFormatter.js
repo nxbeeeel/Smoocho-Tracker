@@ -37,3 +37,37 @@ export const formatDateDisplay = (dateString) => {
   }
 };
 
+/**
+ * Normalize a YYYY-MM string and return a safe value + Date instance.
+ */
+export const normalizeMonthValue = (value) => {
+  const today = new Date();
+  const fallbackValue = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+  const fallbackDate = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  if (!value || typeof value !== 'string') {
+    return { value: fallbackValue, date: fallbackDate };
+  }
+
+  const monthPattern = /^\d{4}-\d{2}$/;
+  if (!monthPattern.test(value)) {
+    return { value: fallbackValue, date: fallbackDate };
+  }
+
+  const [yearStr, monthStr] = value.split('-');
+  const year = Number(yearStr);
+  const month = Number(monthStr);
+
+  if (Number.isNaN(year) || Number.isNaN(month)) {
+    return { value: fallbackValue, date: fallbackDate };
+  }
+
+  const parsedDate = new Date(year, month - 1, 1);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return { value: fallbackValue, date: fallbackDate };
+  }
+
+  const normalizedValue = `${parsedDate.getFullYear()}-${String(parsedDate.getMonth() + 1).padStart(2, '0')}`;
+  return { value: normalizedValue, date: parsedDate };
+};
+

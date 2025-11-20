@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { formatCurrency } from '../utils/calculations';
-import { getCurrentDate } from '../utils/dateFormatter';
+import { getCurrentDate, normalizeMonthValue } from '../utils/dateFormatter';
 import { getMonthlySummary, isReady } from '../services/appsScriptService';
 import { getCachedData, cacheData, CACHE_KEYS } from '../services/cacheService';
 import { Download, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
@@ -33,8 +33,10 @@ const DashboardPage = () => {
   }, [selectedMonth]);
 
   const fetchSummary = async () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { value: safeMonthValue, date } = normalizeMonthValue(selectedMonth);
+    if (safeMonthValue !== selectedMonth) {
+      setSelectedMonth(safeMonthValue);
+    }
     const monthName = date.toLocaleString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
     
     // Try to get cached data first for instant display
@@ -73,29 +75,24 @@ const DashboardPage = () => {
   };
 
   const handlePreviousMonth = () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { date } = normalizeMonthValue(selectedMonth);
     date.setMonth(date.getMonth() - 1);
-    const newMonth = date.toISOString().substring(0, 7);
-    setSelectedMonth(newMonth);
+    setSelectedMonth(date.toISOString().substring(0, 7));
   };
 
   const handleNextMonth = () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { date } = normalizeMonthValue(selectedMonth);
     date.setMonth(date.getMonth() + 1);
-    const newMonth = date.toISOString().substring(0, 7);
-    setSelectedMonth(newMonth);
+    setSelectedMonth(date.toISOString().substring(0, 7));
   };
 
   const getMonthDisplay = () => {
-    const [year, month] = selectedMonth.split('-');
-    const date = new Date(year, parseInt(month) - 1, 1);
+    const { date } = normalizeMonthValue(selectedMonth);
     return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
   return (
-    <div className="space-y-3 sm:space-y-4 pb-6 sm:pb-8">
+    <div className="space-y-3 sm:space-y-4 pb-8 max-w-4xl mx-auto">
       {/* Header */}
       <Card>
         <CardHeader className="pb-4">
@@ -135,10 +132,9 @@ const DashboardPage = () => {
                     type="month"
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
-                    className="w-full px-3 py-2 border border-input rounded-md bg-background h-10 text-sm text-center cursor-pointer"
-                    style={{ color: '#000000' }}
+                    className="w-full px-4 py-3 border border-white/30 rounded-xl bg-white/95 text-base text-center text-slate-900 shadow-[var(--glass-shadow-sm)] cursor-pointer"
                   />
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
                 </div>
               </div>
               

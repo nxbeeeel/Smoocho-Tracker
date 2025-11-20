@@ -113,7 +113,7 @@ const ExpensePage = () => {
   const otherCategories = EXPENSE_CATEGORIES.filter(cat => !FRUIT_CATEGORIES.includes(cat));
 
   return (
-    <div className="space-y-4 pb-6">
+    <div className="space-y-4 pb-10 max-w-4xl mx-auto">
       <Card>
         <CardHeader className="pb-4">
           <CardTitle className="text-xl sm:text-2xl">💰 Expense Entry</CardTitle>

@@ -6,12 +6,12 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
     <input
       type={type}
       className={cn(
-        "flex h-10 w-full rounded-md border border-[var(--glass-border)] bg-background/60 backdrop-blur-[var(--blur-sm)] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-none focus:border-primary/50 disabled:cursor-not-allowed disabled:opacity-50 transition-all",
+        "flex h-12 w-full rounded-xl border border-white/30 bg-white/95 text-base text-slate-900 shadow-[var(--glass-shadow-sm)] px-4 py-3 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 outline-none focus:border-primary/70 focus:ring-2 focus:ring-white/50 disabled:cursor-not-allowed disabled:opacity-60 transition-all",
         className
       )}
       style={{ 
-        color: '#000000',
-        caretColor: '#000000'
+        color: '#0f172a',
+        caretColor: '#0f172a'
       }}
       ref={ref}
       {...props}
