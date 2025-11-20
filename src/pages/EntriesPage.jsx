@@ -7,8 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
 import { formatCurrency } from '../utils/calculations';
-import { isReady, getEntriesData } from '../services/appsScriptService';
+import { isReady, getEntriesData, submitAdjustments } from '../services/appsScriptService';
 import { Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { normalizeMonthValue, getCurrentDate } from '../utils/dateFormatter';
 
@@ -19,6 +20,14 @@ const EntriesPage = () => {
   const [expenseEntries, setExpenseEntries] = useState({ headers: [], rows: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [adjustDate, setAdjustDate] = useState(getCurrentDate());
+  const [adjustInputs, setAdjustInputs] = useState({
+    swiggyPayout: '',
+    zomatoPayout: '',
+    cashWithdrawal: '',
+  });
+  const [adjustLoading, setAdjustLoading] = useState(false);
+  const [adjustMessage, setAdjustMessage] = useState(null);
 
   useEffect(() => {
     if (isReady()) {
@@ -50,6 +59,36 @@ const EntriesPage = () => {
       setExpenseEntries({ headers: [], rows: [] });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAdjustmentChange = (field, value) => {
+    setAdjustInputs(prev => ({
+      ...prev,
+      [field]: value.replace(/[^0-9.]/g, ''),
+    }));
+  };
+
+  const handleAdjustmentSubmit = async (field) => {
+    const rawValue = adjustInputs[field];
+    if (!rawValue) {
+      setAdjustMessage({ type: 'error', text: 'Please enter an amount before saving.' });
+      return;
+    }
+
+    setAdjustLoading(true);
+    setAdjustMessage(null);
+    try {
+      await submitAdjustments({
+        date: adjustDate,
+        [field]: parseFloat(rawValue) || 0,
+      });
+      setAdjustMessage({ type: 'success', text: 'Adjustment saved successfully.' });
+      setAdjustInputs(prev => ({ ...prev, [field]: '' }));
+    } catch (err) {
+      setAdjustMessage({ type: 'error', text: 'Failed to save adjustment.' });
+    } finally {
+      setAdjustLoading(false);
     }
   };
 
@@ -146,6 +185,58 @@ const EntriesPage = () => {
           {!isReady() && (
             <Alert variant="warning">
               <AlertDescription>Connect to Apps Script in Setup to view entries.</AlertDescription>
+            </Alert>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Adjustments Card */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg sm:text-xl">🎯 Payouts & Withdrawals</CardTitle>
+          <CardDescription className="text-sm">Update swiggy/zomato payouts or cash withdrawal for any date.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Adjustment Date</label>
+            <Input
+              type="date"
+              value={adjustDate}
+              onChange={(e) => setAdjustDate(e.target.value)}
+              className="h-11 text-sm"
+            />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              { field: 'swiggyPayout', label: 'Swiggy Payout (₹)' },
+              { field: 'zomatoPayout', label: 'Zomato Payout (₹)' },
+              { field: 'cashWithdrawal', label: 'Cash Withdrawal (₹)' },
+            ].map((item) => (
+              <div key={item.field} className="space-y-1.5">
+                <label className="text-xs font-semibold">{item.label}</label>
+                <div className="flex gap-2">
+                  <Input
+                    type="text"
+                    value={adjustInputs[item.field]}
+                    onChange={(e) => handleAdjustmentChange(item.field, e.target.value)}
+                    placeholder="0.00"
+                    className="flex-1 h-11 text-sm"
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => handleAdjustmentSubmit(item.field)}
+                    disabled={adjustLoading}
+                    className="px-3 h-11 text-sm font-semibold"
+                  >
+                    Save
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+          {adjustMessage && (
+            <Alert variant={adjustMessage.type === 'success' ? 'success' : 'warning'}>
+              <AlertDescription>{adjustMessage.text}</AlertDescription>
             </Alert>
           )}
         </CardContent>

@@ -62,6 +62,9 @@ function doPost(e) {
       case 'monthlySummary':
         result = getMonthlySummary(month);
         break;
+      case 'adjustments':
+        result = handleAdjustments(entry);
+        break;
       case 'test':
         result = { success: true, message: 'Connection OK' };
         break;
@@ -258,6 +261,14 @@ function getCashBalanceData(dateString) {
     ? sheet.getRange(rowInfo.rowIndex, 10).getValue() || 0
     : 0;
 
+  // Get today's swiggy / zomato payout (columns F,G)
+  const swiggyPayout = rowInfo.rowIndex > 0
+    ? sheet.getRange(rowInfo.rowIndex, 6).getValue() || 0
+    : 0;
+  const zomatoPayout = rowInfo.rowIndex > 0
+    ? sheet.getRange(rowInfo.rowIndex, 7).getValue() || 0
+    : 0;
+
   // Get today's total cash expenses (column L = 12)
   const todayCashExpense = rowInfo.rowIndex > 0
     ? sheet.getRange(rowInfo.rowIndex, 12).getValue() || 0
@@ -269,6 +280,8 @@ function getCashBalanceData(dateString) {
       yesterdayClosing,
       todayCashExpense,
       cashWithdrawal,
+      swiggyPayout,
+      zomatoPayout,
     },
   };
 }
@@ -600,6 +613,44 @@ function getEntries(sheetType, monthYear) {
       error: error.toString(),
     };
   }
+}
+
+function handleAdjustments(entry) {
+  if (!entry || !entry.date) {
+    return { success: false, error: 'Date is required' };
+  }
+
+  const salesSpreadsheet = getOrCreateSpreadsheet(SALES_SHEET_ID, SALES_SHEET_NAME);
+  const monthName = getMonthName(entry.date);
+  const sheet = getOrCreateSheet(salesSpreadsheet, monthName);
+
+  ensureSalesHeaders(sheet);
+
+  const entryDate = formatDate(entry.date);
+  const rowIndex = findOrCreateRow(sheet, entryDate);
+
+  if (entry.swiggyPayout !== undefined) {
+    sheet.getRange(rowIndex, 6).setValue(parseFloat(entry.swiggyPayout) || 0);
+  }
+
+  if (entry.zomatoPayout !== undefined) {
+    sheet.getRange(rowIndex, 7).setValue(parseFloat(entry.zomatoPayout) || 0);
+  }
+
+  if (entry.cashWithdrawal !== undefined) {
+    const newWithdrawal = parseFloat(entry.cashWithdrawal) || 0;
+    const currentNet = sheet.getRange(rowIndex, 8).getValue() || 0;
+    const currentWithdrawal = sheet.getRange(rowIndex, 10).getValue() || 0;
+    const actualCash = currentNet + currentWithdrawal;
+    const updatedNet = actualCash - newWithdrawal;
+    sheet.getRange(rowIndex, 10).setValue(newWithdrawal);
+    sheet.getRange(rowIndex, 8).setValue(updatedNet);
+  }
+
+  formatSalesRow(sheet, rowIndex);
+  updateMonthTotals(sheet);
+
+  return { success: true, message: 'Adjustments saved' };
 }
 
 function jsonResponse(payload) {

@@ -22,11 +22,8 @@ const SalesPage = () => {
   const [bankSale, setBankSale] = useState('');
   const [cashInHand, setCashInHand] = useState('');
   const [cashInBank, setCashInBank] = useState('');
-  const [cashWithdrawal, setCashWithdrawal] = useState('');
   const [swiggy, setSwiggy] = useState('');
   const [zomato, setZomato] = useState('');
-  const [swiggyPayout, setSwiggyPayout] = useState('');
-  const [zomatoPayout, setZomatoPayout] = useState('');
   const [staffName, setStaffName] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
@@ -56,9 +53,6 @@ const SalesPage = () => {
       
       if (balance) {
         setCashBalance(balance);
-        if (typeof balance.cashWithdrawal !== 'undefined') {
-          setCashWithdrawal(balance.cashWithdrawal ? String(balance.cashWithdrawal) : '');
-        }
       } else {
         // Set default if no data
         setCashBalance({
@@ -66,7 +60,6 @@ const SalesPage = () => {
           todayCashExpense: 0,
           cashWithdrawal: 0,
         });
-        setCashWithdrawal('');
       }
     } catch (err) {
       console.error('Failed to fetch cash balance:', err);
@@ -75,19 +68,22 @@ const SalesPage = () => {
         todayCashExpense: 0,
         cashWithdrawal: 0,
       });
-      setCashWithdrawal('');
     }
   };
 
   // Calculate totals
   const cashBankTotal = (parseFloat(cashSale) || 0) + (parseFloat(bankSale) || 0);
   const totalSaleWithPlatforms = cashBankTotal + (parseFloat(swiggy) || 0) + (parseFloat(zomato) || 0);
-  const netSale = calculateNetSale(totalSaleWithPlatforms, swiggyPayout, zomatoPayout);
+  const netSale = calculateNetSale(
+    totalSaleWithPlatforms,
+    cashBalance?.swiggyPayout || 0,
+    cashBalance?.zomatoPayout || 0
+  );
   
   const yesterdayClosing = cashBalance?.yesterdayClosing || 0;
   const todayCashSale = parseFloat(cashSale) || 0;
   const todayCashExpense = cashBalance?.todayCashExpense || 0;
-  const withdrawalAmount = parseFloat(cashWithdrawal) || 0;
+  const withdrawalAmount = cashBalance?.cashWithdrawal || 0;
   const enteredCashInHand = parseFloat(cashInHand) || 0;
   const cashAfterWithdrawal = enteredCashInHand - withdrawalAmount;
   
@@ -120,7 +116,6 @@ const SalesPage = () => {
     setBankSale('');
     setCashInHand('');
     setCashInBank('');
-    setCashWithdrawal('');
     setSwiggy('');
     setZomato('');
     setSwiggyPayout('');
@@ -145,11 +140,11 @@ const SalesPage = () => {
         bankSale: parseFloat(bankSale) || 0,
         cashInHand: parseFloat(cashInHand) || 0,
         cashInBank: parseFloat(cashInBank) || 0,
-        cashWithdrawal: parseFloat(cashWithdrawal) || 0,
+        cashWithdrawal: 0,
         swiggy: parseFloat(swiggy) || 0,
         zomato: parseFloat(zomato) || 0,
-        swiggyPayout: parseFloat(swiggyPayout) || 0,
-        zomatoPayout: parseFloat(zomatoPayout) || 0,
+        swiggyPayout: 0,
+        zomatoPayout: 0,
       };
 
       if (isReady()) {
@@ -331,19 +326,6 @@ const SalesPage = () => {
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor="cashWithdrawal" className="text-sm font-semibold">Cash Withdrawal (₹)</Label>
-                <Input
-                  id="cashWithdrawal"
-                  type="text"
-                  inputMode="decimal"
-                  value={cashWithdrawal}
-                  onChange={(e) => setCashWithdrawal(e.target.value.replace(/[^0-9.]/g, ''))}
-                  placeholder="0.00"
-                  className={compactInputClass}
-                />
-              </div>
-
-              <div className="space-y-1.5">
                 <Label htmlFor="swiggy" className="text-sm font-semibold">Swiggy (₹)</Label>
                 <Input
                   id="swiggy"
@@ -369,32 +351,10 @@ const SalesPage = () => {
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="swiggyPayout" className="text-sm font-semibold">Swiggy Payout (₹)</Label>
-                <Input
-                  id="swiggyPayout"
-                  type="text"
-                  inputMode="decimal"
-                  value={swiggyPayout}
-                  onChange={(e) => setSwiggyPayout(e.target.value.replace(/[^0-9.]/g, ''))}
-                  placeholder="0.00"
-                  className={compactInputClass}
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="zomatoPayout" className="text-sm font-semibold">Zomato Payout (₹)</Label>
-                <Input
-                  id="zomatoPayout"
-                  type="text"
-                  inputMode="decimal"
-                  value={zomatoPayout}
-                  onChange={(e) => setZomatoPayout(e.target.value.replace(/[^0-9.]/g, ''))}
-                  placeholder="0.00"
-                  className={compactInputClass}
-                />
-              </div>
             </div>
+            <p className="text-xs text-muted-foreground">
+              Swiggy/Zomato payouts and cash withdrawals can now be entered anytime from the <strong>Entries</strong> page adjustments card.
+            </p>
 
             <div className="grid gap-3 lg:grid-cols-2">
             {/* Quick Cash Expenses */}

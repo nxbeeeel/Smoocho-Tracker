@@ -85,6 +85,18 @@ export const submitSales = async (entry) => {
   }
 };
 
+export const submitAdjustments = async (entry) => {
+  try {
+    await makeRequest({
+      type: 'adjustments',
+      entry,
+    });
+    return true;
+  } catch (error) {
+    throw error;
+  }
+};
+
 /**
  * Get cash balance information for a date
  */
