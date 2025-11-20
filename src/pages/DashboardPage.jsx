@@ -92,7 +92,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="space-y-3 sm:space-y-4 pb-8 max-w-4xl mx-auto">
+    <div className="space-y-4 pb-10 max-w-5xl mx-auto">
       {/* Header */}
       <Card>
         <CardHeader className="pb-4">

@@ -396,8 +396,9 @@ const SalesPage = () => {
               </div>
             </div>
 
+            <div className="grid gap-3 lg:grid-cols-2">
             {/* Quick Cash Expenses */}
-            <Card className="bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800 text-slate-900">
+            <Card className="bg-orange-50 dark:bg-orange-950 border-orange-200 dark:border-orange-800 text-slate-900 h-full">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base sm:text-lg text-slate-900">💰 Quick Cash Expenses</CardTitle>
                 <CardDescription className="text-xs text-slate-600">Enter common daily expenses</CardDescription>
@@ -465,7 +466,7 @@ const SalesPage = () => {
             </Card>
 
             {/* Cash Balance Calculation */}
-            <Card className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800 text-slate-900">
+            <Card className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800 text-slate-900 h-full">
               <CardHeader className="pb-3">
                 <CardTitle className="text-lg text-slate-900">💰 Cash Balance Calculation</CardTitle>
               </CardHeader>
@@ -548,6 +549,7 @@ const SalesPage = () => {
                 )}
               </CardContent>
             </Card>
+            </div>
 
             <div className="grid grid-cols-2 gap-4 p-4 bg-muted rounded-lg">
               <div className="text-center">

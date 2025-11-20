@@ -113,7 +113,7 @@ const ExpensePage = () => {
   const otherCategories = EXPENSE_CATEGORIES.filter(cat => !FRUIT_CATEGORIES.includes(cat));
 
   return (
-    <div className="space-y-4 pb-10 max-w-4xl mx-auto">
+    <div className="space-y-3 pb-8 max-w-4xl mx-auto">
       <Card>
         <CardHeader className="pb-4">
           <CardTitle className="text-xl sm:text-2xl">💰 Expense Entry</CardTitle>
@@ -128,18 +128,18 @@ const ExpensePage = () => {
       )}
 
       <Card>
-        <CardContent className="pt-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <CardContent className="pt-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid gap-4 lg:grid-cols-2">
             {/* Date */}
             <div className="space-y-2">
-              <Label htmlFor="date" className="text-base font-semibold">Date</Label>
+              <Label htmlFor="date" className="text-sm font-semibold">Date</Label>
               <div className="flex gap-2">
                 <Button
                   type="button"
                   onClick={handlePreviousDay}
                   variant="outline"
-                  size="lg"
-                  className="h-12 px-4"
+                  className="h-11 w-11"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
@@ -151,7 +151,7 @@ const ExpensePage = () => {
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     required
-                    className="h-12 text-base pl-10"
+                    className="h-11 text-sm pl-10"
                   />
                   <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground pointer-events-none" />
                 </div>
@@ -160,8 +160,7 @@ const ExpensePage = () => {
                   type="button"
                   onClick={handleNextDay}
                   variant="outline"
-                  size="lg"
-                  className="h-12 px-4"
+                  className="h-11 w-11"
                 >
                   <ChevronRight className="h-5 w-5" />
                 </Button>
@@ -170,8 +169,7 @@ const ExpensePage = () => {
                   type="button"
                   onClick={handleToday}
                   variant="secondary"
-                  size="lg"
-                  className="h-12 px-4 text-sm font-bold"
+                  className="h-11 px-3 text-xs font-bold"
                 >
                   Today
                 </Button>
@@ -179,14 +177,14 @@ const ExpensePage = () => {
             </div>
 
             {/* Payment Method Selection - Enhanced Buttons */}
-            <div className="space-y-3">
-              <Label className="text-base font-semibold block">Payment Method</Label>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-2">
+              <Label className="text-sm font-semibold block">Payment Method</Label>
+              <div className="grid grid-cols-2 gap-2">
                 <Button
                   type="button"
                   variant={paymentMethod === 'cash' ? 'default' : 'outline'}
                   onClick={() => setPaymentMethod('cash')}
-                  className={`h-16 text-lg font-bold transition-all ${
+                  className={`h-12 text-base font-semibold transition-all ${
                     paymentMethod === 'cash' 
                       ? 'bg-primary text-primary-foreground shadow-lg scale-105' 
                       : 'bg-background/60'
@@ -200,7 +198,7 @@ const ExpensePage = () => {
                   type="button"
                   variant={paymentMethod === 'bank' ? 'default' : 'outline'}
                   onClick={() => setPaymentMethod('bank')}
-                  className={`h-16 text-lg font-bold transition-all ${
+                  className={`h-12 text-base font-semibold transition-all ${
                     paymentMethod === 'bank' 
                       ? 'bg-primary text-primary-foreground shadow-lg scale-105' 
                       : 'bg-background/60'
@@ -215,16 +213,17 @@ const ExpensePage = () => {
                 Selected: <span className="font-bold capitalize">{paymentMethod}</span>
               </p>
             </div>
+            </div>
 
             {/* Category Selection - Tabs */}
             <div className="space-y-3">
-              <Label className="text-base font-semibold block">Category</Label>
+              <Label className="text-sm font-semibold block">Category</Label>
               <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-                <TabsList className="w-full h-14">
-                  <TabsTrigger value="fruits" className="flex-1 text-base font-bold">
+                <TabsList className="w-full h-12">
+                  <TabsTrigger value="fruits" className="flex-1 text-sm font-semibold">
                     🍓 Fruits
                   </TabsTrigger>
-                  <TabsTrigger value="others" className="flex-1 text-base font-bold">
+                  <TabsTrigger value="others" className="flex-1 text-sm font-semibold">
                     📦 Others
                   </TabsTrigger>
                 </TabsList>
@@ -236,7 +235,7 @@ const ExpensePage = () => {
                       id="fruitCategory"
                       value={selectedCategory}
                       onChange={handleCategoryChange}
-                      className="h-12 text-base"
+                      className="h-11 text-sm"
                     >
                       <option value="">-- Choose fruit --</option>
                       {FRUIT_CATEGORIES.map(category => (
@@ -255,7 +254,7 @@ const ExpensePage = () => {
                       id="otherCategory"
                       value={selectedCategory}
                       onChange={handleCategoryChange}
-                      className="h-12 text-base"
+                      className="h-11 text-sm"
                     >
                       <option value="">-- Choose category --</option>
                       {otherCategories.map(category => (
@@ -272,7 +271,7 @@ const ExpensePage = () => {
             {/* Amount Input - Shows when category is selected */}
             {selectedCategory && (
               <div className="space-y-2">
-                <Label htmlFor="amount" className="text-base font-semibold">
+                <Label htmlFor="amount" className="text-sm font-semibold">
                   Amount for <span className="text-primary">{selectedCategory}</span> (₹)
                 </Label>
                 <Input
@@ -282,7 +281,7 @@ const ExpensePage = () => {
                   onChange={(e) => setAmount(e.target.value.replace(/[^0-9.]/g, ''))}
                   placeholder="0.00"
                   required
-                  className="h-16 text-2xl font-bold text-center"
+                  className="h-14 text-xl font-bold text-center"
                   autoFocus
                 />
               </div>
@@ -317,8 +316,7 @@ const ExpensePage = () => {
             <Button 
               type="submit" 
               disabled={loading || !selectedCategory || !amount} 
-              className="w-full h-16 text-lg font-bold"
-              size="lg"
+              className="w-full h-14 text-base font-semibold"
             >
               {loading ? '⏳ Saving...' : '💾 Save Expense'}
             </Button>
