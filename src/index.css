@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0rem;
+    /* High-quality black, grey, white palette */
+    --background: 240 5.9% 10%; /* Dark blue-grey background */
+    --foreground: 0 0% 98%; /* Pure white #fafafa */
+    --card: 0 0% 9%; /* Dark grey #171717 */
+    --card-foreground: 0 0% 98%; /* White */
+    --popover: 0 0% 9%; /* Dark grey */
+    --popover-foreground: 0 0% 98%; /* White */
+    --primary: 0 0% 98%; /* White */
+    --primary-foreground: 0 0% 9%; /* Dark grey */
+    --secondary: 0 0% 14.9%; /* Medium grey #262626 */
+    --secondary-foreground: 0 0% 98%; /* White */
+    --muted: 0 0% 14.9%; /* Medium grey */
+    --muted-foreground: 0 0% 63.9%; /* Light grey #a3a3a3 */
+    --accent: 0 0% 14.9%; /* Medium grey */
+    --accent-foreground: 0 0% 98%; /* White */
+    --destructive: 0 62.8% 30.6%; /* Red for errors */
+    --destructive-foreground: 0 0% 98%; /* White */
+    --border: 0 0% 14.9%; /* Medium grey */
+    --input: 0 0% 14.9%; /* Medium grey */
+    --ring: 0 0% 83.1%; /* Light grey #d4d4d4 */
+
+    /* Glass effect variables - Premium Apple style (more transparent, stronger blur) */
+    --glass-bg: rgba(255, 255, 255, 0.15);  /* 15% opacity - more transparent */
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    --glass-shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+    --glass-shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    --blur: 40px;                            /* Stronger blur */
+    --blur-sm: 20px;
+    --blur-lg: 60px;
+  }
+
+  .dark {
+    --background: 240 5.9% 10%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    
+    /* Glass effect for dark mode - more transparent */
+    --glass-bg: rgba(255, 255, 255, 0.08);  /* 8% opacity for dark mode */
+    --blur: 40px;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background: hsl(var(--background));
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(255, 255, 255, 0.03) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: hsl(var(--foreground));
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  input, textarea, select {
+    color: #000000 !important;
+    caret-color: #000000 !important;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #666666 !important;
+    opacity: 0.7;
+  }
+  input[type="date"], input[type="time"], input[type="datetime-local"] {
+    color: #000000 !important;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0);
+    opacity: 0.8;
+  }
+}
+
